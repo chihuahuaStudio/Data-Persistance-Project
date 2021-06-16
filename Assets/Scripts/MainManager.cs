@@ -3,25 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class MainManager : MonoBehaviour
 {
+    public static MainManager Instance { get; private set; }
+
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
 
+    public GameObject bestScoreText;
     public Text ScoreText;
+    public Text bestScore;
+    public string _myName;
+
     public GameObject GameOverText;
     
     private bool m_Started = false;
-    private int m_Points;
+    public int m_Points;
+    public int totalPoints = 0;
     
     private bool m_GameOver = false;
 
-    
+    private void Awake()
+    {
+        Instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
+        _myName = InputName.Instance.myName;
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -65,13 +77,15 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
-        
+        ScoreText.text = $"Score : {m_Points}";  
     }
 
     public void GameOver()
     {
         m_GameOver = true;
+        bestScoreText.SetActive(true);
         GameOverText.SetActive(true);
+        bestScore.text = $"Best score: {_myName} {m_Points}";
+        SaveData.Instance.SaveScoreData();
     }
 }
