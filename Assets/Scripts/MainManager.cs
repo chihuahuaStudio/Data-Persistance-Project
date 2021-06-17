@@ -22,7 +22,8 @@ public class MainManager : MonoBehaviour
     
     private bool m_Started = false;
     public int m_Points;
-    public int totalPoints = 0;
+    public static int totalPoints;
+    public int saveDataPoints;
     
     private bool m_GameOver = false;
 
@@ -33,7 +34,10 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _myName = InputName.Instance.myName;
+        Debug.Log(totalPoints);
+        
+       
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -57,6 +61,7 @@ public class MainManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 m_Started = true;
+                AudioManager.Instance.PlayBallSound();
                 float randomDirection = Random.Range(-1.0f, 1.0f);
                 Vector3 forceDir = new Vector3(randomDirection, 1, 0);
                 forceDir.Normalize();
@@ -82,10 +87,42 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        _myName = InputName.Instance.myName;
+
         m_GameOver = true;
         bestScoreText.SetActive(true);
         GameOverText.SetActive(true);
-        bestScore.text = $"Best score: {_myName} {m_Points}";
-        SaveData.Instance.SaveScoreData();
+        //totalPoints = m_Points;
+        PrintBestScore();
+
+        if(saveDataPoints > 0)
+        {
+            SaveData.Instance.SaveScoreData();
+        }
+        
     }
+
+    public void PrintBestScore()
+    {
+      
+        if (m_Points > totalPoints)
+        {
+            bestScore.text = $"New Best score: {_myName} {m_Points}";
+        }
+        else if(m_Points < totalPoints)
+        {
+            bestScore.text = $"Your score: {_myName} {m_Points}";
+        }
+
+        if(m_Points > totalPoints)
+        {
+            totalPoints = m_Points;
+            saveDataPoints = totalPoints;
+        }
+
+        
+        Debug.Log("SavePoints: " + saveDataPoints);
+
+    }
+       
 }

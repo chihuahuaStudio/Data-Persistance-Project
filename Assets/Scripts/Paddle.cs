@@ -28,4 +28,12 @@ public class Paddle : MonoBehaviour
 
         transform.position = pos;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            AudioManager.Instance.PlayBallSound();
+        }
+    }
 }

@@ -20,14 +20,7 @@ public class SaveData : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        
     }
-
-    //private void Start()
-    //{
-    //    bestScoreName = MainManager.Instance._myName;
-    //    bestScorePoints = MainManager.Instance.m_Points;
-    //}
 
     [Serializable]
     class SaveBestScoreData
@@ -40,7 +33,7 @@ public class SaveData : MonoBehaviour
     {
         SaveBestScoreData data = new SaveBestScoreData();
         data.bestScoreName = MainManager.Instance._myName;
-        data.bestScorepoints = MainManager.Instance.m_Points;
+        data.bestScorepoints = MainManager.Instance.saveDataPoints;
 
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath + "/bestscore.json", json);
