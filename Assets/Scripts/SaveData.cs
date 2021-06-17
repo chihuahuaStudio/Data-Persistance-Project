@@ -52,4 +52,13 @@ public class SaveData : MonoBehaviour
             bestScorePoints = data.bestScorepoints;
         }
     }
+
+    public void DeleteBestScore()
+    {
+        string path = Application.persistentDataPath + "/bestscore.json";
+        if(File.Exists(path))
+        {
+            File.Delete(path);
+        }
+    }
 }

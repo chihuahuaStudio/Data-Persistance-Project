@@ -14,4 +14,9 @@ public class BestScoreData : MonoBehaviour
         bestScore.text = $"Best score by: {SaveData.Instance.bestScoreName} {SaveData.Instance.bestScorePoints}";
     }
 
+    public void DeleteBestScore()
+    {
+        bestScore.text = "";
+    }
+
 }

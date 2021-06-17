@@ -33,7 +33,7 @@ public class Paddle : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            
+            AudioManager.Instance.PlayBallSound();
         }
     }
 }
