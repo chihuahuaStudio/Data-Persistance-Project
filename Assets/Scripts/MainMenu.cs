@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void LoadMainMenu()
     {
-        AudioManager.Instance.PlayMenuButtonSound();
+        
         SceneManager.LoadScene(0);
         
     }

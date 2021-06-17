@@ -35,9 +35,7 @@ public class MainManager : MonoBehaviour
     void Start()
     {
         Debug.Log(totalPoints);
-        
        
-
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -61,7 +59,7 @@ public class MainManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 m_Started = true;
-                AudioManager.Instance.PlayBallSound();
+              
                 float randomDirection = Random.Range(-1.0f, 1.0f);
                 Vector3 forceDir = new Vector3(randomDirection, 1, 0);
                 forceDir.Normalize();
@@ -92,7 +90,7 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         bestScoreText.SetActive(true);
         GameOverText.SetActive(true);
-        //totalPoints = m_Points;
+        
         PrintBestScore();
 
         if(saveDataPoints > 0)
